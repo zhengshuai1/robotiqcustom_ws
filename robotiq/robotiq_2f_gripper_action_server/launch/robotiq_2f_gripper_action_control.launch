@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<launch>
+  <arg name="gripper_name" default="/robotiq_2f_gripper/gripper_action" />
+  <arg name="min_gap" default="0.0" />
+  <arg name="max_gap" default="0.051" /> <!-- meters -->
+  <arg name="min_effort" default="20.0" />
+  <arg name="max_effort" default="150.0" />
+  <arg name="device_name" default="/dev/ttyUSB0" />
+
+  <node name="robotiq_2f_gripper_action_server" pkg="robotiq_2f_gripper_action_server"
+    type="robotiq_2f_gripper_action_server_node" output="screen">
+    <param name="gripper_name" type="str" value="$(arg gripper_name)" />
+    <param name="min_gap" type="double" value="$(arg min_gap)" />
+    <param name="max_gap" type="double" value="$(arg max_gap)" />
+    <param name="min_effort" type="double" value="$(arg min_effort)" />
+    <param name="max_effort" type="double" value="$(arg max_effort)" />
+
+    <remap from="input" to="$(arg gripper_name)/input" />
+    <remap from="output" to="$(arg gripper_name)/output" />
+  </node>
+
+  <node name="robotiq_2f_gripper_rtu_driver" pkg="robotiq_2f_gripper_action_server"
+        type="robotiq_2f_gripper_rtu_driver.py" output="screen" args="$(arg device_name)">
+    <remap from="input" to="$(arg gripper_name)/input" />
+    <remap from="output" to="$(arg gripper_name)/output" />
+  </node>
+</launch>

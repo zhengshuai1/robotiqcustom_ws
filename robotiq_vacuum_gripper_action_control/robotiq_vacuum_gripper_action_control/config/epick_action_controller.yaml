@@ -1,0 +1,12 @@
+vacuum_gripper:
+  # Feedback rate in Hz
+  publish_rate: 60
+  # Gripper width in meters [0, 0.085]
+  min_gap:    0
+  max_gap:    255
+  # Gripper speed in m/s [0.013, 0.1]
+  min_speed:  0
+  max_speed:  255
+  # Gripper force in N. [40, 100]
+  min_force:  10
+  max_force:  78

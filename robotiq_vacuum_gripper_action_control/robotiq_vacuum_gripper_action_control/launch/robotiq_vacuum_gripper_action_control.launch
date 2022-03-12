@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<launch>
+  <arg name="gripper_name" default="/robotiq_vacuum_gripper/gripper_action" />
+  <arg name="device_name" default="/dev/ttyUSB0" />
+
+  <rosparam file="$(find robotiq_vacuum_gripper_action_control)/config/epick_action_controller.yaml" command="load" />
+  <node name="robotiq_vacuum_gripper_action_server" pkg="robotiq_vacuum_gripper_action_control"
+    type="epick_action_controller.py" output="screen">
+    <param name="gripper_name" type="str" value="$(arg gripper_name)" />
+    <remap from="input" to="$(arg gripper_name)/input" />
+    <remap from="output" to="$(arg gripper_name)/output" />
+  </node>
+
+  <node name="robotiq_vacuum_gripper_rtu_driver" pkg="robotiq_vacuum_gripper_action_control"
+        type="robotiq_vacuum_gripper_rtu_driver.py" output="screen" args="$(arg device_name)">
+    <remap from="input" to="$(arg gripper_name)/input" />
+    <remap from="output" to="$(arg gripper_name)/output" />
+  </node>
+</launch>

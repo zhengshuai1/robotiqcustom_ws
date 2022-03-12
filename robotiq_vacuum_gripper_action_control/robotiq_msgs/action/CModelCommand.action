@@ -1,0 +1,16 @@
+# Goal
+int32       mod
+float64     position
+float64     velocity
+float64     force
+---
+# Result
+int32         position
+bool        stalled
+bool        reached_goal
+---
+# Feedback
+int32        position
+#bool        activated
+bool        stalled
+bool        reached_goal
